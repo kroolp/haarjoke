@@ -1,54 +1,70 @@
-require "haarjoke/version"
+require 'haarjoke/version'
 require 'json'
 require 'open-uri'
 
 module Haarjoke
+  def Haarjoke.create_joke
+    joke = Joke.new
+    joke.text
+  end
+
   class Joke
     attr_reader :text
+
+    FILTERS = (%W[race woman women gay black natives
+      porn handicap god bible staring rape condom]).join("|")
+    SUBSTITUTIONS = {
+      "chuck norrises" => "Haars",
+      "chuck norris\'s" => "Haar's",
+      "chuck norris\'" => "Haar's",
+      "chuck norris" => "Haar",
+      "penis" => "axe",
+      "dick" => "axe",
+      "american" => "Daein",
+      "america" => "Daein",
+      "beat" => "sleep",
+      "superman" => "Chuck Norris",
+      "beard" => "eyepatch",
+      "pick\-up truck" => "wyvern",
+      "pick\-up" => "wyvern"
+      }
 
     def text
       @text = generate_joke
     end
 
-
     private
     def generate_joke
-      joke = ""
-      chuck_norris = false
+      joke = get_joke_from_api
+      return "Zzzzzzzzzzzzzzz. Haar is sleeping." if joke.nil?
 
-      until chuck_norris
-        joke = get_joke_from_api
-        return "Zzzzzzzzzzzzz. Haar is sleeping." if joke.nil?
-
-        if joke =~ /chuck norris/i
-          #let's get rid of the racist, sexist and nasty ones...
-          chuck_norris = true unless joke =~ /race|woman|women|gay|black|natives|porn|handicap|god|bible|staring|rape|condom/i
-        end
-        haar_joke = joke.gsub(/chuck norrises/i, "Haars")
-        haar_joke = joke.gsub(/chuck norris\'s/i, "Haar's")
-        haar_joke = joke.gsub(/chuck norris/i, "Haar")
-        haar_joke = haar_joke.gsub(/penis|dick/i, "axe")
-        haar_joke = haar_joke.gsub(/american|america/i, "Daein")
-        haar_joke = haar_joke.gsub(/beat/i, "sleep")
-        haar_joke = haar_joke.gsub(/superman/i, "Chuck Norris")
-        haar_joke = haar_joke.gsub(/beard/i, "eyepatch")
-        haar_joke = haar_joke.gsub(/pick\-up/i, "wyvern")
-      end
-      return haar_joke
+      substitute_terms(joke)
     end
 
-
     def get_joke_from_api
-      api_url = "http://api.icndb.com/jokes/random"
+      api_url = 'http://api.icndb.com/jokes/random'
+      joke = ""
 
       begin
         open(api_url) do |stream|
           joke = JSON.parse(stream.read)
         end
-        return joke['value']['joke']
+        joke = joke['value']['joke']
+        accept_joke?(joke) ? joke : get_joke_from_api
       rescue StandardError
-        return nil
+        nil
       end
+    end
+
+    def accept_joke?(joke)
+      joke.match(/#{FILTERS}/i).nil?
+    end
+
+    def substitute_terms(joke)
+      SUBSTITUTIONS.each do |key, value|
+        joke.gsub!(/#{key}/i, value)
+      end
+      joke
     end
   end
 end
