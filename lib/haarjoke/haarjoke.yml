@@ -1,0 +1,33 @@
+# jokes containing terms from the filters list will not be used
+filters:
+  # Add or remove filters as required.
+  - race
+  - woman
+  - women
+  - gay
+  - black
+  - natives
+  - porn
+  - handicap
+  - god
+  - bible
+  - staring
+  - rape
+  - condom
+
+# subsitutions is a list of terms that will be replaced with other terms
+substitutions:
+  # Add or remove subsitutions as required. Be careful about the order.
+  chuck norrises: Haars
+  chuck norris's: Haar's
+  chuck norris': Haar's
+  chuck norris: Haar
+  penis: axe
+  dick: axe
+  american: Daein
+  america: Daein
+  beat: sleep
+  superman: Chuck Norris
+  beard: eyepatch
+  pick-up truck: wyvern
+  pick-up: wyvern
