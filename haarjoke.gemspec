@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{Returns a joke based on a Chuck Norris joke but featuring Haar.}
   spec.description   = %q{Uses the Chuck Norris joke api and replaces Chuck Norris with the
                           Fire Emblem character Haar.}
-  spec.homepage      = "git@github.com:pveggie/haarjoke.git"
+  spec.homepage      = "https://github.com/pveggie/haarjoke"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
