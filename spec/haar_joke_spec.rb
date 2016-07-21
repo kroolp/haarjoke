@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe Haarjoke do
+RSpec.describe HaarJoke do
   before do
     stub_request(:get, /api.icndb.com/)
       .to_return(status: 200,
@@ -13,21 +13,21 @@ RSpec.describe Haarjoke do
   end
 
   it 'has a version number' do
-    expect(Haarjoke::VERSION).not_to be nil
+    expect(HaarJoke::VERSION).not_to be nil
   end
 
   describe 'Haarjoke.create_joke' do
     it 'provides a shortcut that creates a Joke object and returns the text' do
-      expect(Haarjoke.create_joke).to match(/Haar/)
+      expect(HaarJoke.create_joke).to match(/Haar/)
     end
   end
 
-  describe Haarjoke::Joke do
+  describe HaarJoke::Joke do
     it 'can be used to create HaarJoke::Joke objects' do
-      expect(Haarjoke::Joke.new).to be_a(Haarjoke::Joke)
+      expect(HaarJoke::Joke.new).to be_a(HaarJoke::Joke)
     end
 
-    let(:joke) { Haarjoke::Joke.new }
+    let(:joke) { HaarJoke::Joke.new }
 
     describe '.text' do
       it 'returns a joke about Haar when called' do

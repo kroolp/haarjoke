@@ -1,4 +1,4 @@
-require 'haarjoke/version'
+require 'haar_joke/version'
 require 'json'
 require 'open-uri'
 require 'yaml'
@@ -6,7 +6,7 @@ require 'yaml'
 # This module contains a Joke class for creating jokes featuring the fire
 # Emblem Haar (using Chuck Norris jokes from http://api.icndb.com).
 # It also contains a method for creating a joke and getting returning the joke
-module Haarjoke
+module HaarJoke
   def self.create_joke
     joke = Joke.new
     joke.text
@@ -17,7 +17,7 @@ module Haarjoke
   class Joke
     attr_reader :text
 
-    file_path = File.join(File.dirname(__FILE__),'haarjoke/haarjoke.yml')
+    file_path = File.join(File.dirname(__FILE__),'haar_joke/haar_joke.yml')
     DATA = YAML.load_file(file_path)
 
     FILTERS = DATA['filters'].join('|')
