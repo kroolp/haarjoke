@@ -18,8 +18,8 @@ filters:
 # subsitutions is a list of terms that will be replaced with other terms
 substitutions:
   # Add or remove subsitutions as required. Be careful about the order.
+  # e.g. substituting "america" first would change "american" to "daeinn"
   chuck norrises: Haars
-  chuck norris's: Haar's
   chuck norris': Haar's
   chuck norris: Haar
   penis: axe
@@ -31,3 +31,4 @@ substitutions:
   beard: eyepatch
   pick-up truck: wyvern
   pick-up: wyvern
+  walk: fly

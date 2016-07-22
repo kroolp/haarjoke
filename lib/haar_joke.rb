@@ -7,21 +7,39 @@ require 'yaml'
 # Emblem Haar (using Chuck Norris jokes from http://api.icndb.com).
 # It also contains a method for creating a joke and getting returning the joke
 module HaarJoke
+  # load default filters and substitutions
+  file_path = File.join(File.dirname(__FILE__), 'haar_joke/haar_joke.yml')
+  @config = YAML.load_file(file_path)
+
+  # user can create joke with custom settings
   def self.create_joke
     joke = Joke.new
     joke.text
+  end
+
+  # user can create joke with their own file
+  def self.create_custom_joke
+    customized
+    create_joke
+  end
+
+  private
+
+  def self.customized
+    @config = YAML.load_file(Rails.root.join('config/haar_joke.yml'))
+  rescue
+    raise 'YAML file missing. Custom method requires a config/haar_joke.yml
+    file.'
+  end
+
+  def self.config
+    @config
   end
 
   # This class can be used to create joke instances. The .text method
   # returns the joke text.
   class Joke
     attr_reader :text
-
-    file_path = File.join(File.dirname(__FILE__),'haar_joke/haar_joke.yml')
-    DATA = YAML.load_file(file_path)
-
-    FILTERS = DATA['filters'].join('|')
-    SUBSTITUTIONS = DATA['substitutions']
 
     def text
       @text = generate_joke
@@ -50,11 +68,13 @@ module HaarJoke
     end
 
     def accept_joke?(joke)
-      joke.match(/#{FILTERS}/i).nil?
+      filters = HaarJoke.config['filters'].join('|')
+      joke.match(/#{filters}/i).nil?
     end
 
     def substitute_terms(joke)
-      SUBSTITUTIONS.each do |key, value|
+      substitutions = HaarJoke.config['substitutions']
+      substitutions.each do |key, value|
         joke.gsub!(/#{key}/i, value)
       end
       joke
