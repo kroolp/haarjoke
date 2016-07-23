@@ -2,14 +2,15 @@
 
 <img src="https://travis-ci.org/pveggie/haarjoke.svg?branch=master">
 
-HaarJoke can be used to create Chuck Norris type jokes featuring Haar*.
+HaarJoke can be used to create Chuck Norris type jokes featuring Haar.
+
+<img src="http://vignette2.wikia.nocookie.net/fireemblem/images/f/fb/Haar.jpg/revision/latest?cb=20090813131313">
 
 * Haar is a character from Fire Emblem: Path of Radiance and Fire Emblem:
 Radiant Dawn. He is know for being badass even while sleeping. Haar does not
 kill enemies; enemies kill themselves on Haar.
 
-http://www.gamefaqs.com/boards/932999-fire-emblem-radiant-dawn/41201620
-<img src="http://vignette2.wikia.nocookie.net/fireemblem/images/f/fb/Haar.jpg/revision/latest?cb=20090813131313"
+<a href="http://www.gamefaqs.com/boards/932999-fire-emblem-radiant-dawn/41201620">http://www.gamefaqs.com/boards/932999-fire-emblem-radiant-dawn/41201620</a>
 
 Jokes are taken from The Internet Chuck Norris Database
 <a href="http://www.icndb.com/api/">(http://www.icndb.com/api/)</a>
