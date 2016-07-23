@@ -1,0 +1,12 @@
+# jokes containing terms from the filters list will not be used
+filters:
+  # Add or remove filters as required.
+  pizza
+
+# subsitutions is a list of terms that will be replaced with other terms
+substitutions:
+  # Add or remove subsitutions as required. Be careful about the order.
+  # e.g. substituting "america" first would change "american" to "daeinn"
+  chuck norrises: Jills
+  chuck norris': Jill's
+  chuck norris: Jill
