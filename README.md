@@ -1,17 +1,25 @@
-# Haarjoke
+# HaarJoke
 
 <img src="https://travis-ci.org/pveggie/haarjoke.svg?branch=master">
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/haarjoke`. To experiment with that code, run `bin/console` for an interactive prompt.
+HaarJoke can be used to create Chuck Norris type jokes featuring Haar*.
 
-TODO: Delete this and the text above, and describe your gem
+* Haar is a character from Fire Emblem: Path of Radiance and Fire Emblem:
+Radiant Dawn. He is know for being badass even while sleeping. Haar does not
+kill enemies; enemies kill themselves on Haar.
+
+http://www.gamefaqs.com/boards/932999-fire-emblem-radiant-dawn/41201620
+<img src="http://vignette2.wikia.nocookie.net/fireemblem/images/f/fb/Haar.jpg/revision/latest?cb=20090813131313"
+
+Jokes are taken from The Internet Chuck Norris Database
+<a href="http://www.icndb.com/api/">(http://www.icndb.com/api/)</a>
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'haarjoke'
+gem 'haar_joke'
 ```
 
 And then execute:
@@ -20,11 +28,36 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install haarjoke
+    $ gem install haar_joke
 
 ## Usage
 
-TODO: Write usage instructions here
+You can generate a default Haar joke.
+
+```ruby
+HaarJoke.create_joke
+```
+
+You can also customise the joke to feature someone other than Haar,
+to substitute terms of your choice, and to filter out jokes based on terms.
+
+```ruby
+HaarJoke.create_custom_joke
+```
+
+This requires a YAML file listing filters and substituions at
+config/haar_joke.yml
+
+Example (No jokes about milk. Chuck Norris to be replaced by Brian):
+```yaml
+filters:
+  - milk
+substitutions:
+  chuck norrises: Brians
+  chuck norris': Brian's
+  chuck norris: Brian
+```
+
 
 ## Development
 
@@ -34,7 +67,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/haarjoke.
+Bug reports and pull requests are welcome on GitHub at https://github.com/pveggie/haarjoke.
 
 
 ## License
