@@ -24,13 +24,13 @@ RSpec.describe HaarJoke::Joke do
     end
   end
 
-  describe 'Substitutions' do
-    it 'replace Chuck Norris with Haar' do
+  describe 'Substitution' do
+    it 'replaces Chuck Norris with Haar' do
       expect(joke.instance_eval { generate_joke })
         .to eql('Haar wears Haar pajamas.')
     end
 
-    it 'replace various real world terms with Fire Emblem terms' do
+    it 'replaces various real world terms with Fire Emblem terms' do
       stub_request(:get, /api.icndb.com/)
         .to_return(status: 200,
                    body: '{ "type": "success",
@@ -40,6 +40,54 @@ RSpec.describe HaarJoke::Joke do
                           }',
                    headers: {})
       expect(joke.text).to eql('Haar Daein wyvern')
+    end
+
+    it 'replaces Chuck Norris\'s with Haar\'s' do
+      stub_request(:get, /api.icndb.com/)
+        .to_return(status: 200,
+                   body: '{ "type": "success",
+                            "value": {
+                            "joke": "Chuck Norris\'s Cake"
+                            }
+                          }',
+                   headers: {})
+      expect(joke.text).to eql("Haar's Cake")
+    end
+
+    it 'replaces Chuck Norris\' with Haar\'s' do
+      stub_request(:get, /api.icndb.com/)
+        .to_return(status: 200,
+                   body: '{ "type": "success",
+                            "value": {
+                            "joke": "Chuck Norris\' Cake"
+                            }
+                          }',
+                   headers: {})
+      expect(joke.text).to eql("Haar's Cake")
+    end
+
+    it 'replaces any leftover Chucks with Haar' do
+      stub_request(:get, /api.icndb.com/)
+        .to_return(status: 200,
+                   body: '{ "type": "success",
+                            "value": {
+                            "joke": "If Chuck Norris were a calendar, every month would be named Chucktober, and every day he\'d kick your ass."
+                            }
+                          }',
+                   headers: {})
+      expect(joke.text).to eql("If Haar were a calendar, every month would be named Haartober, and every day he'd kick your ass.")
+    end
+
+    it 'replaces any leftover Norrisses with Haar' do
+      stub_request(:get, /api.icndb.com/)
+        .to_return(status: 200,
+                   body: '{ "type": "success",
+                            "value": {
+                            "joke": "Chuck Norris something Norris"
+                            }
+                          }',
+                   headers: {})
+      expect(joke.text).to eql("Haar something Haar")
     end
   end
 
@@ -65,7 +113,19 @@ RSpec.describe HaarJoke::Joke do
 
     describe 'accept_joke?' do
       it 'does not accept jokes from the filters list' do
-        expect(joke.instance_eval { accept_joke?('woman') }).to eql(false)
+        expect(joke.instance_eval { accept_joke?('woman Chuck Norris') })
+          .to eql(false)
+      end
+
+      it 'does not accept jokes that don\'t contain the full term Chuck Norris' do
+        expect(joke.instance_eval { accept_joke?('Chuck') }).to eql(false)
+      end
+    end
+
+    describe 'subsitute terms' do
+      it 'replaces &quot; with quote mark' do
+        expect(joke.instance_eval { substitute_terms("It defined &quot;victim&quot; as") })
+          .to eql("It defined \"victim\" as")
       end
     end
   end
